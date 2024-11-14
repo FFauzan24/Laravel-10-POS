@@ -32,7 +32,7 @@
             </li>
             <li class="header">MASTER</li>
             <li>
-                <a href="#">
+                <a href="{{ route('kategori.index') }}">
                     <i class="fa fa-cubes"></i> <span>Kategori</span>
                 </a>
             </li>
