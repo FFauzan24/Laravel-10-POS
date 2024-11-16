@@ -50,3 +50,8 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
     }
     return $text;
 }
+
+function tambahkan_0($value, $threshold = null)
+{
+    return sprintf("%0" . $threshold . "s", $value);
+}

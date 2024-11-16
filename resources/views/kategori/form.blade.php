@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal-form" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <form action="" method="post" id="form" class="form-horizontal" enctype="multipart/form-data">
             @csrf
             @method('post')
@@ -12,7 +12,7 @@
                 <div class="modal-body">
                     <div class="form-group row">
                         <label for="nama_kategori" class="col-md-2 col-md-offset-1 control-label">Kategori</label>
-                        <div class="col-md-9">
+                        <div class="col-md-6">
                             <input type="text" name="nama_kategori" id="nama_kategori" class="form-control"
                                 value="" required autofocus>
                             <span class="help-block with-errors"></span>
