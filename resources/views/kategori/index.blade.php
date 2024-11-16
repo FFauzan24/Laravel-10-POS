@@ -60,7 +60,7 @@
                 ]
             });
 
-            $('#modal-form').validator().on('submit', function(e) {
+            $('#modal-form').on('submit', function(e) {
                 if (!e.isDefaultPrevented()) {
                     $.ajax({
                         type: $('#modal-form form').attr('method'),
