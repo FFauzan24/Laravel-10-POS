@@ -11,29 +11,39 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
+
                     <button onclick="addForm('{{ route('produk.store') }}')" class="btn btn-success btn-flat">
                         <i class="fa fa-plus-circle"></i> Tambah
+                    </button>
+                    <button onclick="deleteSelected('{{ route('produk.delete-selected') }}')" class="btn btn-danger btn-flat">
+                        <i class="fa fa-trash"></i> Hapus
                     </button>
                 </div>
 
                 <div class="box-body table-responsive">
-                    <table id="produk-table" class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th width="5%">No</th>
-                                <th>Kode</th>
-                                <th>Nama</th>
-                                <th>Kategori</th>
-                                <th>Merk</th>
-                                <th>Harga Beli</th>
-                                <th>Harga Jual</th>
-                                <th>Diskon</th>
-                                <th>Stok</th>
-                                <th width="15%"><i class="fa fa-cog"></i></th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                    <form action="" class="form-produk">
+                        @csrf
+                        <table id="produk-table" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" name="select_all" id="select_all">
+                                    </th>
+                                    <th width="5%">No</th>
+                                    <th>Kode</th>
+                                    <th>Nama</th>
+                                    <th>Kategori</th>
+                                    <th>Merk</th>
+                                    <th>Harga Beli</th>
+                                    <th>Harga Jual</th>
+                                    <th>Diskon</th>
+                                    <th>Stok</th>
+                                    <th width="15%"><i class="fa fa-cog"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </form>
                 </div>
             </div>
         </div>
@@ -52,10 +62,16 @@
                 autoWidth: false,
                 ajax: '{{ route('produk.data') }}',
                 columns: [{
+                        data: 'select_all',
+                        orderable: false,
+                        searchable: false,
+                        sortable: false,
+                        width: '5%'
+                    }, {
                         data: 'DT_RowIndex',
                         searchable: false,
-                        sortable: false
                     },
+
                     {
                         data: 'kode_produk'
                     },
@@ -110,6 +126,10 @@
                 }
             });
 
+            $('[name=select_all]').on('click', function(e) {
+                $(':checkbox').prop('checked', this.checked);
+            });
+
 
         });
 
@@ -151,8 +171,6 @@
                 });
         }
 
-
-
         function deleteData(url) {
             $.post(url, {
                     '_token': $('meta[name=csrf-token]').attr('content'),
@@ -164,6 +182,24 @@
                 .fail((errors) => {
                     alert('Tidak dapat menghapus data');
                 })
+        }
+
+        function deleteSelected(url) {
+            if ($('input:checked').length > 0) {
+                if (confirm('Apakah Anda yakin ingin menghapus data?')) {
+                    $.post(url, $('.form-produk').serialize())
+                        .done((response) => {
+                            table.ajax.reload();
+                        })
+                        .fail((errors) => {
+                            (alert('Tidak dapat menghapus data'));
+                            return
+                        })
+                }
+            } else {
+                alert("Pilh data yang akan dihapus");
+                return;
+            }
         }
     </script>
 @endpush
