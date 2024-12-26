@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kategori;
 use App\Models\Produk;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class ProdukController extends Controller
@@ -122,5 +123,22 @@ class ProdukController extends Controller
             $produk->delete();
         }
         return response()->json("Data Berhasil Dihapus", 200);
+    }
+
+    public function cetakBarcode(Request $request)
+    {
+        $produk = Produk::find($request->id_produk);
+
+        $nomor = 1;
+        $pdf = PDF::loadView('produk.barcode', compact('produk', 'nomor'));
+        $pdf->setPaper('a4', 'potrait');
+        return $pdf->stream('produk.pdf');
+
+        // $dataProduk = [];
+        // foreach ($request->id_produk as $id) {
+        //     $produk = Produk::find($id);
+        //     $dataProduk[] = $produk;
+        // }
+        // return $dataProduk;
     }
 }
