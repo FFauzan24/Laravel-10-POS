@@ -44,10 +44,10 @@ class ProdukController extends Controller
                 $editUrl = route('produk.update', $produk->id_produk);
                 $deleteUrl = route('produk.destroy', $produk->id_produk); // Pastikan route sesuai
                 return '<div class="btn-group">
-            <button onclick="editForm(`' . $editUrl . '`)" class="btn btn-xs btn-info btn-flat">
+            <button type="button" onclick="editForm(`' . $editUrl . '`)" class="btn btn-xs btn-info btn-flat">
                 <i class="fa fa-edit"></i>
             </button> 
-            <button onclick="deleteData(`' . $deleteUrl . '`)" class="btn btn-xs btn-danger btn-flat">
+            <button type="button" onclick="deleteData(`' . $deleteUrl . '`)" class="btn btn-xs btn-danger btn-flat">
                 <i class="fa fa-trash"></i>
             </button>
             </div>';
